@@ -1,7 +1,9 @@
 **Project Overview**
+
 - **Purpose:** Adaptive Opus — ML-driven adaptive audio compression for VoIP that combines ML optimization with robust fallbacks.
 
 **Quick Start (Windows)**
+
 # Adaptive Opus — ML-driven Adaptive Audio Compression
 
 **Project Overview**
@@ -66,6 +68,7 @@ streamlit run dashboard.py
 Reproduced training and evaluation using `RandomForestRegressor(n_estimators=100, random_state=42)` on `opus_dataset.csv`.
 
 **Performance Metrics**
+
 - Training R²: 0.8401
 - Test R²: 0.8166
 - Training MAE: 0.2083
@@ -75,12 +78,14 @@ Reproduced training and evaluation using `RandomForestRegressor(n_estimators=100
 - 5-fold CV R²: 0.8260 ± 0.0482
 
 **Feature Importances (retrained model)**
+
 - `bitrate`: 0.2135 (21.3%)
 - `frame_size`: 0.0125 (1.3%)
 - `use_fec`: 0.0033 (0.3%)
 - `packet_loss_perc`: 0.7707 (77.1%)
 
 **Feature Importances (saved `qoe_model.joblib`)**
+
 - `bitrate`: 0.2135 (21.3%)
 - `frame_size`: 0.0125 (1.3%)
 - `use_fec`: 0.0033 (0.3%)
@@ -96,13 +101,15 @@ Reproduced training and evaluation using `RandomForestRegressor(n_estimators=100
 - Included OOD report and plots: see the `reports/` directory for `OOD_REPORT.md`, `mean_mos_by_controller.png`, and `mos_vs_loss.png`. The OOD sweep used two test inputs (`beep_440.wav`, `wild_speech_sim.wav`) across packet losses [0,1,2,3,4,5,7,10,15,20] and four controllers (Static, Heuristic, ML-Adaptive, Hybrid).
 
 Summary (aggregate):
+
 - Mean MOS by controller (higher is better):
+
   - static: 3.011
   - heuristic: 2.619
   - ml_adaptive: 2.914
   - hybrid: 2.966
-
 - Mean MOS by input:
+
   - `beep_440.wav`: 2.912
   - `wild_speech_sim.wav`: 2.843
 
@@ -112,12 +119,3 @@ At 5% packet loss snapshot: `static` and `hybrid` performed best; `heuristic` pe
 
 - The analyses validate the project's claim: the model explains ~81% of variance on the test set but learned dataset-specific patterns (overfitting to LibriSpeech).
 - The Hybrid controller is validated by OOD testing: it avoids ML decisions at high loss where ML is unreliable.
-
----
-
-## Next Steps
-
-- Expand `reports/FINAL_REPORT.md` with numeric tables and inline plots for publication.
-- Optionally export the `reports/OOD_REPORT.md` + images to PDF for a distributable report.
-
-If you'd like, I can commit these changes and open a PR with the updated `README.md`.
